@@ -1,4 +1,4 @@
-@extends('front.layouts.app');
+@extends('front.layouts.app')
 
 @section('main')
 <section class="section-5">
@@ -26,14 +26,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-2">Confirm Password*</label>
-                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Please Confirm Password">
+                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Please confirm Password">
                             <p></p>
                         </div>
                         <button class="btn btn-primary mt-2">Register</button>
                     </form>
                 </div>
                 <div class="mt-4 text-center">
-                    <p>Have an account? <a  href="{{ route("account.login")}}">Login</a></p>
+                    <p>Have an account? <a  href="{{ route('account.login') }}">Login</a></p>
                 </div>
             </div>
         </div>
@@ -52,9 +52,9 @@ $("#registrationForm").submit(function(e){
         data: $("#registrationForm").serializeArray(),
         dataType: 'json',
         success: function(response) {
-            if(response.status == false) {
+            if (response.status == false) {
                 var errors = response.errors;
-                if(errors.name) {
+                if (errors.name) {
                     $("#name").addClass('is-invalid')
                     .siblings('p')
                     .addClass('invalid-feedback')
@@ -65,7 +65,8 @@ $("#registrationForm").submit(function(e){
                     .removeClass('invalid-feedback')
                     .html('')
                 }
-                if(errors.email) {
+
+                if (errors.email) {
                     $("#email").addClass('is-invalid')
                     .siblings('p')
                     .addClass('invalid-feedback')
@@ -76,7 +77,8 @@ $("#registrationForm").submit(function(e){
                     .removeClass('invalid-feedback')
                     .html('')
                 }
-                if(errors.password) {
+
+                if (errors.password) {
                     $("#password").addClass('is-invalid')
                     .siblings('p')
                     .addClass('invalid-feedback')
@@ -87,7 +89,8 @@ $("#registrationForm").submit(function(e){
                     .removeClass('invalid-feedback')
                     .html('')
                 }
-                if(errors.confirm_password) {
+
+                if (errors.confirm_password) {
                     $("#confirm_password").addClass('is-invalid')
                     .siblings('p')
                     .addClass('invalid-feedback')
@@ -107,12 +110,12 @@ $("#registrationForm").submit(function(e){
                 $("#email").removeClass('is-invalid')
                     .siblings('p')
                     .removeClass('invalid-feedback')
-                    .html('');
+                    .html('')
 
                 $("#password").removeClass('is-invalid')
                     .siblings('p')
                     .removeClass('invalid-feedback')
-                    .html('');
+                    .html('')
 
                 $("#confirm_password").removeClass('is-invalid')
                     .siblings('p')
