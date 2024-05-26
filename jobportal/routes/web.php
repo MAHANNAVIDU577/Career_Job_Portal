@@ -9,7 +9,7 @@ use App\Http\Controllers\HomeController;
 // });
 
 Route::get('/', [HomeController::class,'index'])->name('home');
-
+Route::get('/jobs', [HomeController::class,'index'])->name('jobs');
 
 
 Route::group(['prefix' => 'account'],function(){
