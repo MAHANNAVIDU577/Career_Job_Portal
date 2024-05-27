@@ -16,8 +16,8 @@ class HomeController extends Controller
 
         $newCategories = Category::where('status',1)->orderBy('name','ASC')->get();
 
-        $featuredJobs = Job::where('status', 1)
-                        ->orderBy('created_at', 'DESC')
+        $featuredJobs = Job::where('status',1)
+                        ->orderBy('created_at','DESC')
                         ->with('jobType')
                         ->where('isFeatured',1)->take(6)->get();
 
