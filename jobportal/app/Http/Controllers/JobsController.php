@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\JobType;
 use App\Models\Job;
+use App\Models\User;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobNotificationEmail;
 
 class JobsController extends Controller
 {
@@ -132,6 +135,15 @@ class JobsController extends Controller
         $application->employer_id = $employer_id;
         $application->applied_date = now();
         $application->save();
+
+        // Send Notification Email to Employer
+        $employer = User::where('id', $employer_id)->first();
+        $mailData = [
+            'employer' => $employer,
+            'user' => Auth::user(),
+            'job' => $job,
+        ];
+        Mail::to($employer->email)->send(new JobNotificationEmail($mailData));
 
         $message = 'You have successfully applied.';
 
