@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('main')
-<section class="section-4 bg-2">    
+<section class="section-4 bg-2">
     <div class="container pt-5">
         <div class="row">
             <div class="col">
@@ -11,16 +11,17 @@
                     </ol>
                 </nav>
             </div>
-        </div> 
+        </div>
     </div>
     <div class="container job_details_area">
         <div class="row pb-5">
             <div class="col-md-8">
+                @include('front.message')
                 <div class="card shadow border-0">
                     <div class="job_details_header">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
-                                
+
                                 <div class="jobs_conetent">
                                     <a href="#">
                                         <h4>{{ $job->title }}</h4>
@@ -54,27 +55,31 @@
                             <h4>Responsibility</h4>
                             {!! nL2br($job->responsibility) !!}
                             </div>
-                            @endif 
-                        
+                            @endif
+
                             @if(!empty($job->qualification))
                             <div class="single_wrap">
                             <h4>Qualifications</h4>
                             {!! nL2br($job->qualification) !!}
                             </div>
                             @endif
-                            
-                        
+
+
                             @if(!empty($job->benefits))
                             <div class="single_wrap">
                             <h4>Benefits</h4>
                             {!! nL2br($job->benefits) !!}
                             </div>
                             @endif
-                        
+
                         <div class="border-bottom"></div>
                         <div class="pt-3 text-end">
                             <a href="#" class="btn btn-secondary">Save</a>
-                            <a href="#" class="btn btn-primary">Apply</a>
+                            @if(Auth::check())
+                                <a href="#" onclick="applyJob({{ $job->id }})" class="btn btn-primary">Apply</a>
+                            @else
+                                <a href="javascript:void(0);" class="btn btn-primary disabled">Login To Apply</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -89,7 +94,7 @@
                             <ul>
                                 <li>Published on: <span>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y')}}</span></li>
                                 <li>Vacancy: <span>{{ $job->vacancy }}</span></li>
-                               
+
                                 @if(!empty($job->salary))
                                     <li>Salary: <span>{{ $job->salary }}</span></li>
                                 @endif
@@ -128,4 +133,21 @@
 @endsection
 
 @section('customJs')
+<script type="text/javascript">
+function applyJob(id){
+    if(confirm("Are you sure you want to apply on this job?")) {
+        $.ajax({
+            url: '{{ route("applyJob") }}',
+            type: 'post',
+            data: {id:id},
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == true ) {
+                    window.location.href="{{ url()->current() }}";
+                }
+            }
+        });
+    }
+}
+</script>
 @endsection

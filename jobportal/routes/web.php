@@ -12,7 +12,7 @@ use App\Http\Controllers\JobsController;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/jobs', [JobsController::class,'index'])->name('jobs');
 Route::get('/jobs/detail/{id}', [JobsController::class,'detail'])->name('jobDetail');
-
+Route::post('/apply-job', [JobsController::class,'applyJob'])->name('applyJob');
 Route::group(['prefix' => 'account'],function(){
     // Guest Route
     Route::group(['middleware'=>'guest'],function(){
@@ -33,6 +33,6 @@ Route::group(['prefix' => 'account'],function(){
         Route::get('/my-jobs',[AccountController::class,'myJobs'])->name('account.myJobs');
         Route::post('/update-job/{jobId}',[AccountController::class,'updateJob'])->name('account.updateJob');
         Route::get('/my-jobs/edit/{jobId}',[AccountController::class,'editJob'])->name('account.editJob');
-        Route::post('/delete-job',[AccountController::class,'deleteJob'])->name('account.deleteJob'); 
+        Route::post('/delete-job',[AccountController::class,'deleteJob'])->name('account.deleteJob');
     });
 });
