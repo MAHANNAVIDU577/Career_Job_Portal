@@ -137,6 +137,73 @@ $("#userForm").submit(function(e){
         }
     });
 });
+$("#changePasswordForm").submit(function(e){
+    e.preventDefault();
+
+    $.ajax({
+        url: '{{ route("account.updatePassword") }}',
+        type: 'post',
+        dataType: 'json',
+        data: $("#changePasswordForm").serializeArray(),
+        success: function(response) {
+
+            if(response.status == true) {
+
+                $("#name").removeClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback')
+                    .html('')
+
+                $("#email").removeClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback')
+                    .html('')
+
+                window.location.href="{{ route('account.profile') }}";
+
+            } else {
+                var errors = response.errors;
+
+                if (errors.old_password) {
+                    $("#old_password").addClass('is-invalid')
+                    .siblings('p')
+                    .addClass('invalid-feedback')
+                    .html(errors.old_password)
+                } else {
+                    $("#old_password").removeClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback')
+                    .html('')
+                }
+
+                if (errors.new_password) {
+                    $("#new_password").addClass('is-invalid')
+                    .siblings('p')
+                    .addClass('invalid-feedback')
+                    .html(errors.new_password)
+                } else {
+                    $("#new_password").removeClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback')
+                    .html('')
+                }
+
+                if (errors.confirm_password) {
+                    $("#confirm_password").addClass('is-invalid')
+                    .siblings('p')
+                    .addClass('invalid-feedback')
+                    .html(errors.confirm_password)
+                } else {
+                    $("#confirm_password").removeClass('is-invalid')
+                    .siblings('p')
+                    .removeClass('invalid-feedback')
+                    .html('')
+                }
+            }
+
+        }
+    });
+});
 
 
 
