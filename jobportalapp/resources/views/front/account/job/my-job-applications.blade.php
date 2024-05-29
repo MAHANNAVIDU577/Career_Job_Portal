@@ -24,8 +24,8 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h3 class="fs-4 mb-1">Jobs Applied</h3>
-                            </div>
-
+                            </div>                           
+                            
                         </div>
                         <div class="table-responsive">
                             <table class="table ">
@@ -53,7 +53,7 @@
                                                 <div class="job-status text-capitalize">Active</div>
                                                 @else
                                                 <div class="job-status text-capitalize">Block</div>
-                                                @endif
+                                                @endif                                    
                                             </td>
                                             <td>
                                                 <div class="action-dots float-end">
@@ -73,23 +73,23 @@
                                         <td colspan="5">Job Applications not found</td>
                                     </tr>
                                     @endif
-
-
-                                </tbody>
+                                    
+                                    
+                                </tbody>                                
                             </table>
                         </div>
                         <div>
                             {{ $jobApplications->links() }}
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div>
 </section>
 @endsection
 @section('customJs')
-<script type="text/javascript">
+<script type="text/javascript">   
 function removeJob(id) {
     if (confirm("Are you sure you want to remove?")) {
         $.ajax({
@@ -101,7 +101,7 @@ function removeJob(id) {
                 window.location.href='{{ route("account.myJobApplications") }}';
             }
         });
-    }
+    } 
 }
 </script>
 @endsection
