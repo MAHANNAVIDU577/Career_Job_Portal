@@ -10037,3 +10037,6 @@ footer .nav-link {
     display: flex;
 }
 
+.pagination span{
+    font-size: inherit;
+}
