@@ -20,6 +20,10 @@ Route::get('/jobs/detail/{id}', [JobsController::class,'detail'])->name('jobDeta
 Route::post('/apply-job', [JobsController::class,'applyJob'])->name('applyJob');
 Route::post('/save-job', [JobsController::class,'saveJob'])->name('saveJob');
 
+Route::get('/forgot-password', [AccountController::class,'forgotPassword'])->name('account.forgotPassword');
+Route::post('/process-forgot-password', [AccountController::class,'processForgotPassword'])->name('account.processForgotPassword');
+Route::get('/reset-password/{token}', [AccountController::class,'resetPassword'])->name('account.resetPassword');
+Route::post('/process-reset-password', [AccountController::class,'processResetPassword'])->name('account.processResetPassword');
 Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/users', [UserController::class, 'index'])->name('admin.users');
@@ -32,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkRole'], function () {
     Route::delete('/jobs', [JobController::class, 'destroy'])->name('admin.jobs.destroy');
     Route::get('/job-applications', [JobApplicationController::class, 'index'])->name('admin.jobApplications');
     Route::delete('/job-applications', [JobApplicationController::class, 'destroy'])->name('admin.jobApplications.destroy');
+    Route::get('/reset-password/{token}', [AccountController::class,'resetPassword'])->name('account.resetPassword');
 });
 // Guest Route
 Route::group(['prefix' => 'account'], function(){
