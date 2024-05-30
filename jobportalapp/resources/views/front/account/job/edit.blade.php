@@ -158,8 +158,8 @@ $("#editJobForm").submit(function(e){
     e.preventDefault();
     $("button[type='submit']").prop('disabled',true);
     $.ajax({
-        url: '{{ route("account.updateJob",$job->id) }}',
-        type: 'POST',
+        url: '{{ route("admin.jobs.update",$job->id) }}',
+        type: 'PUT',
         dataType: 'json',
         data: $("#editJobForm").serializeArray(),
         success: function(response) {
@@ -202,7 +202,7 @@ $("#editJobForm").submit(function(e){
                     .removeClass('invalid-feedback')
                     .html('')
 
-                window.location.href="{{ route('account.myJobs') }}";
+                window.location.href="{{ route('admin.jobs') }}";
 
             } else {
                 var errors = response.errors;
@@ -291,7 +291,6 @@ $("#editJobForm").submit(function(e){
                     .html('')
                 }
             }
-
         }
     });
 });

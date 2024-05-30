@@ -432,5 +432,5 @@ class AccountController extends Controller
            'status' => true,
         ]);
     }
-
+    
 }

@@ -8,7 +8,7 @@
                 <nav aria-label="breadcrumb" class=" rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route("admin.dashboard") }}">Home</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">Jobs</li>
                     </ol>
                 </nav>
             </div>
@@ -35,6 +35,7 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Title</th>
                                         <th scope="col">Created By</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -49,6 +50,13 @@
                                                 <p>Applicants: 0</p>
                                             </td>
                                             <td>{{ $job->user->name}}</td>
+                                            <td>
+                                                @if($job->status == 1)
+                                                    <p class="text-success">Active</p>
+                                                    @else
+                                                    <p class="text-danger">Block</p>
+                                                @endif
+                                            </td>
                                             <td>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</td>
                                             <td>
                                                 <div class="action-dots ">
