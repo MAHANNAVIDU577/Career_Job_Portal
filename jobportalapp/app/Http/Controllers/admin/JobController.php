@@ -63,6 +63,7 @@ class JobController extends Controller
             $job->company_name = $request->company_name;
             $job->company_location = $request->company_location;
             $job->company_website = $request->website;
+
             $job->status = $request->status;
             $job->isFeatured = (!empty($request->isFeatured)) ? $request->isFeatured : 0;
             $job->save();
@@ -79,6 +80,24 @@ class JobController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+    }
+    public function destroy(Request $request) {
+        $id = $request->id;
+        
+        $job = Job::find($id);
+
+        if($job == null) {
+            session()->flash('error', 'Either Job deleted or not found.');
+            return response()->json([
+               'status' => false
+            ]);
+        }
+
+        $job->delete();
+        session()->flash('success', 'Job deleted successfully.');
+        return response()->json([
+            'status' => true
+        ]);
     }
 }
 
